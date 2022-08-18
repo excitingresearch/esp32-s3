@@ -47,9 +47,9 @@ try:
     
     
     class BLESimplePeripheral:
-        def __init__(self, ble, name="mpy-uart"):
-            self.i2c = machine.SoftI2C(sda=machine.Pin(1, pull=machine.Pin.PULL_UP), scl=machine.Pin(2, pull=machine.Pin.PULL_UP), freq=100000)   # Software I2C
-            #self.i2c.scan()   # Output : [91]
+        def __init__(self, ble, name="moody_001"):
+
+            self.i2c = machine.SoftI2C(sda=machine.Pin(1, pull=machine.Pin.PULL_UP), scl=machine.Pin(2, pull=machine.Pin.PULL_UP), freq=100000)   
             self.irsensor = mlx90615.MLX90615(self.i2c)
 
             self.np = neopixel.NeoPixel(machine.Pin(42), 1)
@@ -59,8 +59,9 @@ try:
             ((self._handle_tx, self._handle_rx),) = self._ble.gatts_register_services((_UART_SERVICE,))
             self._connections = set()
             self._write_callback = self.on_write
-            self._payload = advertising_payload(name=name, services=[_UART_UUID])
+            self._payload = advertising_payload(name="moody", services=[_UART_UUID])
             self._advertise()
+            self._ble.config(gap_name=name)
             self._set_pixel((0,255,0))
 
         
