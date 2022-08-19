@@ -129,6 +129,7 @@ try:
                 p.send(data)
             time.sleep_ms(1000)
     
+    demo()    
     
     
 
