@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     // Data
     private var centralManager: CBCentralManager!
-    private var bluefruitPeripheral: CBPeripheral!
+    private var moodyPeripheral: CBPeripheral!
     private var txCharacteristic: CBCharacteristic!
     private var rxCharacteristic: CBCharacteristic!
     private var peripheralArray: [CBPeripheral] = []
@@ -32,11 +32,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
       super.viewDidLoad()
 
-      self.tableView.delegate = self
-      self.tableView.dataSource = self
-      self.tableView.reloadData()
+     // self.tableView.delegate = self
+     // self.tableView.dataSource = self
+     // self.tableView.reloadData()
       // Manager
       centralManager = CBCentralManager(delegate: self, queue: nil)
+        
+        self.tableView.delegate = self
+         self.tableView.dataSource = self
+         self.tableView.reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -46,17 +50,17 @@ class ViewController: UIViewController {
     }
 
     func connectToDevice() -> Void {
-      centralManager?.connect(bluefruitPeripheral!, options: nil)
+      centralManager?.connect(moodyPeripheral!, options: nil)
   }
 
     func disconnectFromDevice() -> Void {
-      if bluefruitPeripheral != nil {
-        centralManager?.cancelPeripheralConnection(bluefruitPeripheral!)
+      if moodyPeripheral != nil {
+        centralManager?.cancelPeripheralConnection(moodyPeripheral!)
       }
   }
 
     func removeArrayData() -> Void {
-      centralManager.cancelPeripheralConnection(bluefruitPeripheral)
+      centralManager.cancelPeripheralConnection(moodyPeripheral)
            rssiArray.removeAll()
            peripheralArray.removeAll()
        }
@@ -100,7 +104,7 @@ class ViewController: UIViewController {
 
     func delayedConnection() -> Void {
 
-    BlePeripheral.connectedPeripheral = bluefruitPeripheral
+    BlePeripheral.connectedPeripheral = moodyPeripheral
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
       //Once connected, move to new view controller to manager incoming and outgoing data
@@ -154,7 +158,7 @@ extension ViewController: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
       print("Function: \(#function),Line: \(#line)")
 
-      bluefruitPeripheral = peripheral
+      moodyPeripheral = peripheral
 
       if peripheralArray.contains(peripheral) {
           print("Duplicate Found.")
@@ -165,13 +169,23 @@ extension ViewController: CBCentralManagerDelegate {
 
       peripheralFoundLabel.text = "Peripherals Found: \(peripheralArray.count)"
 
-      bluefruitPeripheral.delegate = self
+      moodyPeripheral.delegate = self
 
-      print("Peripheral Discovered: \(peripheral)")
+        var isMoody = false
+        
+        if peripheral.name != nil && peripheral.name!.contains("moody") {
+            print("Peripheral Discovered: \(peripheral)")
+            print("Peripheral Name: \(peripheral.name ?? "No Name")")
+              print("Peripheral Strength: \(RSSI)")
+            isMoody = true
+        }
+        
 
       self.tableView.reloadData()
         
-        centralManager?.connect(bluefruitPeripheral!, options: nil)
+        if isMoody{
+        centralManager?.connect(moodyPeripheral!, options: nil)
+        }
     }
     
     
@@ -179,7 +193,7 @@ extension ViewController: CBCentralManagerDelegate {
     // MARK: - Connect
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         stopScanning()
-        bluefruitPeripheral.discoverServices([CBUUIDs.BLEService_UUID])
+        moodyPeripheral.discoverServices([CBUUIDs.BLEService_UUID])
     }
 }
 
@@ -293,7 +307,7 @@ extension ViewController: UITableViewDataSource {
 
       let rssiFound = self.rssiArray[indexPath.row]
 
-        if peripheralFound == nil {
+        if peripheralFound.name == nil {
             cell.peripheralLabel.text = "Unknown"
         }else {
             cell.peripheralLabel.text = peripheralFound.name
@@ -312,9 +326,9 @@ extension ViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-      bluefruitPeripheral = peripheralArray[indexPath.row]
+      moodyPeripheral = peripheralArray[indexPath.row]
 
-        BlePeripheral.connectedPeripheral = bluefruitPeripheral
+        BlePeripheral.connectedPeripheral = moodyPeripheral
 
         connectToDevice()
 

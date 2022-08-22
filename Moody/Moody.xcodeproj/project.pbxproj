@@ -11,7 +11,6 @@
 		507EBB6628AFB67E00F77FAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EBB6528AFB67E00F77FAA /* SceneDelegate.swift */; };
 		507EBB6828AFB67E00F77FAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EBB6728AFB67E00F77FAA /* ViewController.swift */; };
 		507EBB6D28AFB67F00F77FAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 507EBB6C28AFB67F00F77FAA /* Assets.xcassets */; };
-		507EBB7028AFB67F00F77FAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 507EBB6E28AFB67F00F77FAA /* LaunchScreen.storyboard */; };
 		507EBB7B28AFB68000F77FAA /* MoodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EBB7A28AFB68000F77FAA /* MoodyTests.swift */; };
 		507EBB8528AFB68000F77FAA /* MoodyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EBB8428AFB68000F77FAA /* MoodyUITests.swift */; };
 		507EBB8728AFB68000F77FAA /* MoodyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EBB8628AFB68000F77FAA /* MoodyUITestsLaunchTests.swift */; };
@@ -19,6 +18,8 @@
 		507EBB9B28AFB75300F77FAA /* BlePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EBB9A28AFB75300F77FAA /* BlePeripheral.swift */; };
 		507EBB9D28AFB76000F77FAA /* CBUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EBB9C28AFB76000F77FAA /* CBUUIDs.swift */; };
 		507EBB9F28AFB79100F77FAA /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507EBB9E28AFB79100F77FAA /* TableViewCell.swift */; };
+		507EBBAA28AFC79E00F77FAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 507EBBA828AFC79E00F77FAA /* LaunchScreen.storyboard */; };
+		507EBBAF28AFC8F300F77FAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 507EBBAD28AFC8F300F77FAA /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +45,6 @@
 		507EBB6528AFB67E00F77FAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		507EBB6728AFB67E00F77FAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		507EBB6C28AFB67F00F77FAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		507EBB6F28AFB67F00F77FAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		507EBB7628AFB68000F77FAA /* MoodyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		507EBB7A28AFB68000F77FAA /* MoodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodyTests.swift; sourceTree = "<group>"; };
 		507EBB8028AFB68000F77FAA /* MoodyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoodyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +55,8 @@
 		507EBB9C28AFB76000F77FAA /* CBUUIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBUUIDs.swift; sourceTree = "<group>"; };
 		507EBB9E28AFB79100F77FAA /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		507EBBA428AFB85100F77FAA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		507EBBA928AFC79E00F77FAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		507EBBAE28AFC8F300F77FAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,8 +113,9 @@
 				507EBB9628AFB70300F77FAA /* View */,
 				507EBB9328AFB6B400F77FAA /* Model */,
 				507EBB6C28AFB67F00F77FAA /* Assets.xcassets */,
-				507EBB6E28AFB67F00F77FAA /* LaunchScreen.storyboard */,
 				507EBBA428AFB85100F77FAA /* Info.plist */,
+				507EBBA828AFC79E00F77FAA /* LaunchScreen.storyboard */,
+				507EBBAD28AFC8F300F77FAA /* Main.storyboard */,
 			);
 			path = Moody;
 			sourceTree = "<group>";
@@ -264,7 +267,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				507EBB7028AFB67F00F77FAA /* LaunchScreen.storyboard in Resources */,
+				507EBBAF28AFC8F300F77FAA /* Main.storyboard in Resources */,
+				507EBBAA28AFC79E00F77FAA /* LaunchScreen.storyboard in Resources */,
 				507EBB6D28AFB67F00F77FAA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,12 +337,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		507EBB6E28AFB67F00F77FAA /* LaunchScreen.storyboard */ = {
+		507EBBA828AFC79E00F77FAA /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				507EBB6F28AFB67F00F77FAA /* Base */,
+				507EBBA928AFC79E00F77FAA /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		507EBBAD28AFC8F300F77FAA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				507EBBAE28AFC8F300F77FAA /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -100,8 +100,14 @@ try:
             self._ble.gap_advertise(interval_us, adv_data=self._payload)
     
         def on_write(self, v):
-            self._set_pixel((v[0], v[1], v[2]))
-            print("RX", v)
+            msg_type = int(v[:1],16)
+            if msg_type == 1 :
+                self._set_pixel((int(v[1:3],16),int(v[3:5],16), int(v[5:7],16)))
+                print("RX", v)
+            elif msg_type == 2:
+                self._set_pixel((0,0,0))
+                print("going to sleep for "+ str(int(v[1:],16))+ "microsecs")
+                machine.deepsleep(int(v[1:],16))    
             #self._write_callback = callback
     
     

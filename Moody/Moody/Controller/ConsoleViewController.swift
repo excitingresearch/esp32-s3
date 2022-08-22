@@ -39,7 +39,7 @@ class ConsoleViewController: UIViewController {
     txLabel.text = "TX:\(String(BlePeripheral.connectedTXChar!.uuid.uuidString))"
     rxLabel.text = "RX:\(String(BlePeripheral.connectedRXChar!.uuid.uuidString))"
 
-    if let service = BlePeripheral.connectedService {
+      if BlePeripheral.connectedService != nil {
       serviceLabel.text = "Number of Services: \(String((BlePeripheral.connectedPeripheral?.services!.count)!))"
     } else{
       print("Service was not found")
