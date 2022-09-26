@@ -53,7 +53,7 @@ try:
     
     
     class BLESimplePeripheral:
-        def __init__(self, ble, name="moody_020"):
+        def __init__(self, ble, name="moody_001"):
 
             self.i2c = machine.SoftI2C(sda=machine.Pin(1, pull=machine.Pin.PULL_UP), scl=machine.Pin(2, pull=machine.Pin.PULL_UP), freq=100000)   
             self.irsensor = mlx90615.MLX90615(self.i2c)
