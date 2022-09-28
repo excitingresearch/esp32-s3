@@ -10,7 +10,7 @@ ampy --port $1 --baud 115200 put ble_advertising.py
 echo "copied BLE"
 
 cp main_template.py main.py
-sed -i '' 's/moody_001/moody_'$2'/g' main.py
+sed -i '' 's/moody_xxx/moody_'$2'/g' main.py
 ampy --port $1 --baud 115200 put main.py
 echo "copied main"
 echo "Done."
