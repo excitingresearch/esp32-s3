@@ -45,8 +45,8 @@ try:
 
 
     class BLESimplePeripheral:
-        def __init__(self, ble, name="moody_xxx"):
-
+        def __init__(self, ble, name="m003"):
+            self.name = name
             self.i2c = machine.SoftI2C(sda=machine.Pin(1, pull=machine.Pin.PULL_UP),
                                        scl=machine.Pin(2, pull=machine.Pin.PULL_UP), freq=100000)
             self.irsensor = mlx90615.MLX90615(self.i2c)
@@ -63,17 +63,17 @@ try:
             ((self._handle_tx, self._handle_rx),) = self._ble.gatts_register_services((_UART_SERVICE,))
             self._connections = set()
             self._write_callback = self.on_write
-            self._payload = advertising_payload(name="moody",
+            self._payload = advertising_payload(name=self.name,
                                                 services=[_UART_UUID])
             self._advertise()
-            self._ble.config(gap_name=name)
+            self._ble.config(gap_name=self.name)
             self._set_pixel((0, 255, 0))
             self.connect_wifi()
 
 
         def _set_pixel(self, c):
             c = [int(e * self.brightness_mult/100) for e in c]
-            print(c)
+            #print(c)
             self.np[0] = c
             self.np.write()
 
@@ -88,11 +88,13 @@ try:
                 conn_handle, _, _ = data
                 print("New connection", conn_handle)
                 self._connections.add(conn_handle)
+                self._advertise()
             elif event == _IRQ_CENTRAL_DISCONNECT:
                 conn_handle, _, _ = data
                 print("Disconnected", conn_handle)
                 self._connections.remove(conn_handle)
                 # Start advertising again to allow a new connection.
+                self._set_pixel((0, 255, 0))
                 self._advertise()
             elif event == _IRQ_GATTS_WRITE:
                 conn_handle, value_handle = data
@@ -198,7 +200,7 @@ try:
                 max_temp = max(self.temps)
                 min_temp = min(self.temps)
                 delta = result - avgTemp
-                if abs(delta) < 0.1:
+                if abs(delta) < 0.02:
                     c = self._get_pixel()
                 ## same
                 #print("delta: ", delta, end=" ")
@@ -226,11 +228,19 @@ try:
                     #print("uprgb: ", cr, " ", cg, " ", 0)
                     c = (int(cr), int(cg), 0)
                 self._set_pixel(c)
+                return c
 
 
     def demo():
         ble = bluetooth.BLE()
-        p = BLESimplePeripheral(ble)
+            
+        try:
+            f = open("name.txt")
+            n = f.readline().strip()
+            p = BLESimplePeripheral(ble,n)
+        except Exception as e:
+            p = BLESimplePeripheral(ble)
+            print (e)
 
         t_val = 0
         
@@ -247,10 +257,10 @@ try:
                 if p.is_connected():
                     try:                
                         t_val = p.irsensor.read_object_temp()
-                        #p.calc_color(t_val)                        ## Don't foget to remove this 
+                        col = p.calc_color(t_val)                        
                         data = str(t_val)
                         print("TX", data)
-                        p.send(data)
+                        p.send(data +"|" +str(col))
                     except Exception as e:
                         print (e)
 

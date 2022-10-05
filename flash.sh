@@ -9,8 +9,9 @@ echo "copied temp"
 ampy --port $1 --baud 115200 put ble_advertising.py 
 echo "copied BLE"
 
-cp main_template.py main.py
-sed -i '' 's/moody_xxx/moody_'$2'/g' main.py
+echo "m$2" > name.txt
+ampy --port $1 --baud 115200 put name.txt
+echo "copied name"
 ampy --port $1 --baud 115200 put main.py
 echo "copied main"
 echo "Done."
