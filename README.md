@@ -10,7 +10,7 @@ Temp
 SCL to IO2
 SDA to IO1
 
-
+![scheme](https://excitingresearch.io/pictures/schema1.jpeg)
 
 ## Flashing ESP:
 
